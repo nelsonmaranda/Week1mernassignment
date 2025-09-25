@@ -1,39 +1,56 @@
-PLP Bookstore - MongoDB Scripts
+## PLP Bookstore — MongoDB Scripts
 
-Prerequisites
-- MongoDB Shell (`mongosh`) installed and on PATH. If you only have the legacy shell, use `mongo` instead of `mongosh` in the commands below.
-- MongoDB server running locally (default `mongodb://localhost:27017`).
+### Prerequisites
+- **MongoDB Server** running locally (default: `mongodb://localhost:27017`).
+- **MongoDB Shell (`mongosh`)** installed and on PATH.
+  - If you only have the legacy shell, replace `mongosh` with `mongo` in commands.
 
-Files
-- `insert_books.js` – Creates database `plp_bookstore`, collection `books`, and inserts 10 sample books.
-- `queries.js` – Contains example find/update/delete queries, advanced projections/sorts/pagination, aggregations, and indexing with `explain()` examples.
+### What’s Included
+- **`insert_books.js`**: Creates the `plp_bookstore` database, `books` collection, and inserts 10 sample books.
+- **`queries.js`**: Contains basic and advanced queries, aggregations, indexing, and `explain()` examples.
 
-How to Run (Windows PowerShell)
-Run each script from this folder:
+### How to Run (Windows PowerShell)
+From this folder (`C:\PLP\MERN`), run:
 
 ```powershell
-# Insert sample data
+# 1) Insert sample data
 mongosh .\insert_books.js
 
-# Run queries (you can also open and run selected parts in an interactive session)
+# 2) Execute all queries/aggregations/indexing
 mongosh .\queries.js
 ```
 
-If using the legacy shell:
+Using the legacy shell instead:
 
 ```powershell
 mongo .\insert_books.js
 mongo .\queries.js
 ```
 
-Notes
-- Re-running `insert_books.js` will attempt to insert the same documents again. If you want to start clean, you can drop the collection first:
+### Useful Tips
+- **Start fresh** (optional): If you re-run inserts and want a clean state:
 
 ```javascript
 use('plp_bookstore');
 db.books.drop();
 ```
 
-- `queries.js` includes `createIndex` calls and `explain("executionStats")` before and after indexes so you can observe index usage and performance differences.
+- **Check inserted data quickly**:
+
+```javascript
+use('plp_bookstore');
+db.books.find().limit(5); // preview first 5 docs
+```
+
+- **See created indexes** after running `queries.js`:
+
+```javascript
+use('plp_bookstore');
+db.books.getIndexes();
+```
+
+### Notes
+- The `queries.js` script demonstrates `explain("executionStats")` before and after index creation so you can observe index usage and performance differences.
+- Feel free to open either script in an interactive `mongosh` session and execute individual blocks for learning and experimentation.
 
 
